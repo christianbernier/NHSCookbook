@@ -120,7 +120,7 @@ export default () => {
             flex-direction: row;
             justify-content: center;
             transform-origin: 0 0;
-            transform: rotate(2deg);
+            /* transform: rotate(2deg); */
             z-index: -999;
 
             @media only screen and (max-width: 500px) {
@@ -137,7 +137,7 @@ export default () => {
             flex-direction: row;
             justify-content: center;
             transform-origin: 0 0;
-            transform: rotate(2deg);
+            /* transform: rotate(2deg); */
 
             @media only screen and (max-width: 500px) {
               transform: none;
