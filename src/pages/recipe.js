@@ -22,6 +22,7 @@ import { Helmet } from "react-helmet-async";
 export default () => {
   const [recipeDetails, setRecipeDetails] = useState({});
   const [doneSearching, setDoneSearching] = useState(false);
+  const [idForTitle, setIDForTitle] = useState("not-set");
   let recipeID = "00000";
 
   useEffect(() => {
@@ -31,6 +32,7 @@ export default () => {
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
       recipeID = urlParams.get("id");
+      setIDForTitle(recipeID);
     }
 
     fetch(
@@ -70,7 +72,7 @@ export default () => {
             ? recipeDetails.title
             : doneSearching
             ? "Error"
-            : recipeID) + " | NHS Cookbook"}
+            : idForTitle) + " | NHS Cookbook"}
         </title>
         <meta
           property="og:title"
