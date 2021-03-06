@@ -11,6 +11,7 @@ import React from "react";
 import {Link} from "gatsby";
 import { css } from "@emotion/core";
 import LinkIcon from "../../assets/link_icon.png";
+import LinkIconLight from "../../assets/link_icon_light.png";
 
 /*
  * text (string) - The text to be displayed in the box
@@ -42,13 +43,14 @@ export default ({ text, type, special, link }) => {
               flex-direction: row;
               justify-content: center;
               align-items: center;
-              background-color: var(--light-gray);
+              /* background-color: var(--light-gray); */
+              background-color: var(--dark-red);
               padding: 0 40px;
               border-radius: 5px;
             `}
           >
             <img
-              src={LinkIcon}
+              src={LinkIconLight}
               css={css`
                 width: 20px;
                 height: 20px;
@@ -59,7 +61,8 @@ export default ({ text, type, special, link }) => {
             <p
               css={css`
                 font-size: 1.2rem;
-                color: var(--font-color);
+                /* color: var(--font-color); */
+                color: var(--light);
                 font-family: "Inter", sans-serif;
                 font-weight: 600;
                 margin: 20px 0;
@@ -95,13 +98,14 @@ export default ({ text, type, special, link }) => {
             flex-direction: row;
             justify-content: center;
             align-items: center;
-            background-color: var(--light-gray);
+            /* background-color: var(--light-gray); */
+            background-color: var(--dark-red);
             padding: 0 40px;
             border-radius: 5px;
           `}
         >
           <img
-            src={LinkIcon}
+            src={LinkIconLight}
             css={css`
               width: 20px;
               height: 20px;
@@ -112,7 +116,8 @@ export default ({ text, type, special, link }) => {
           <p
             css={css`
               font-size: 1.2rem;
-              color: var(--font-color);
+              /* color: var(--font-color); */
+              color: var(--light);
               font-family: "Inter", sans-serif;
               font-weight: 600;
               margin: 20px 0;

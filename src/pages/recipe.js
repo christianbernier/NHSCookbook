@@ -22,7 +22,7 @@ import { Helmet } from "react-helmet-async";
 export default () => {
   const [recipeDetails, setRecipeDetails] = useState({});
   const [doneSearching, setDoneSearching] = useState(false);
-  const [idForTitle, setIDForTitle] = useState("not-set");
+  const [idForTitle, setIDForTitle] = useState("Recipe");
   let recipeID = "00000";
 
   useEffect(() => {
@@ -32,7 +32,9 @@ export default () => {
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
       recipeID = urlParams.get("id");
-      window.gtag("event", "click", {"recipe": recipeID});
+      if(window.location.origin !== "http://localhost:8000"){
+        window.gtag("event", "click", {"recipe": recipeID});
+      }
       setIDForTitle(recipeID);
     }
 
