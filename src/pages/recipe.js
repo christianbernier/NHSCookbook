@@ -22,9 +22,10 @@ import { Helmet } from "react-helmet-async";
 export default () => {
   const [recipeDetails, setRecipeDetails] = useState({});
   const [doneSearching, setDoneSearching] = useState(false);
+  let recipeID = "00000";
 
   useEffect(() => {
-    let recipeID = "00000";
+    
 
     if (typeof window !== "undefined" && typeof document !== "undefined") {
       const queryString = window.location.search;
@@ -69,7 +70,7 @@ export default () => {
             ? recipeDetails.title
             : doneSearching
             ? "Error"
-            : "Loading...") + " | NHS Cookbook"}
+            : recipeID) + " | NHS Cookbook"}
         </title>
         <meta
           property="og:title"
