@@ -32,6 +32,7 @@ export default () => {
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
       recipeID = urlParams.get("id");
+      window.gtag("event", "click", {"recipe": recipeID});
       setIDForTitle(recipeID);
     }
 
