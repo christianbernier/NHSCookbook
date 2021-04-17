@@ -90,6 +90,11 @@ export default () => {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
+
+            @media only screen and (max-width: 500px){
+              flex-direction: column-reverse;
+              margin-top: -30px;
+            }
           `}
         >
           <RecipeHeader
