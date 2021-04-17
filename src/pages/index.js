@@ -1,10 +1,10 @@
 /*
- * National Honor Society — Lexington High School — Lexington, MA
+ * National Honor Society Cookbook — Lexington High School — Lexington, MA
  *
- * index.js — Homepage for the NHS website
- * © 2020-2021 to National Honor Society Lexington, MA Charter
+ * index.js — Homepage of the NHS Cookbook website
+ * © 2021 to National Honor Society Lexington, MA Charter
  *
- * Created by Christian Bernier on 2020-08-20
+ * Created by Christian Bernier on 2021-03-02
  */
 
 import React from "react";
@@ -93,6 +93,18 @@ export default () => {
             />
           ))}
         </div>
+        <Gap height="50px" />
+        <BodyHeader text="Submit a recipe" line={true} />
+        <BodyText
+          paragraphs={[
+            "We're always looking for new recipes to add. Please fill out the Google Form below to submit a recipe.",
+          ]}
+        />
+        <LinkBox
+              text={`Submit a Recipe`}
+              type="external"
+              link={`https://docs.google.com/forms/d/e/1FAIpQLSfawKfOvHbayTKggPbInG6X4SKwNbwiTn7IyCg0QhYvG0jLyQ/viewform?usp=sf_link`}
+            />
         <Gap height="50px" />
         <Footer />
       </div>

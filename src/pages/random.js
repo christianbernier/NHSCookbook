@@ -1,3 +1,12 @@
+/*
+ * National Honor Society Cookbook — Lexington High School — Lexington, MA
+ *
+ * random.js — Redirects the user to a random recipe
+ * © 2021 to National Honor Society Lexington, MA Charter
+ *
+ * Created by Christian Bernier on 2021-03-05
+ */
+
 import React, { useEffect } from "react";
 
 export default () => {

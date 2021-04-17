@@ -1,26 +1,68 @@
 /*
- * National Honor Society — Lexington High School — Lexington, MA
+ * National Honor Society Cookbook — Lexington High School — Lexington, MA
  *
- * LinkBox.js — A button for a link, either internal or external
- * © 2020-2021 to National Honor Society Lexington, MA Charter
+ * SearchBar.js — The search bar on the homepage
+ * © 2021 to National Honor Society Lexington, MA Charter
  *
- * Created by Christian Bernier on 2020-08-31
+ * Created by Christian Bernier on 2021-03-02
  */
 
 import React, { useState, useEffect } from "react";
 import { Link } from "gatsby";
 import { css } from "@emotion/core";
 import SearchIcon from "../../assets/search_icon.png";
-
-/*
- * text (string) - The text to be displayed in the box
- * type (string) - The type of link (either internal or external) for more efficient linking (<a> for external; <Link> for internal)
- * link (string) - The URL of the link
- */
+import DownArrow from "../../assets/down_arrow.png";
+import UpArrow from "../../assets/up_arrow.png";
 
 export default () => {
   const [recipes, setRecipes] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(0);
+  const [showCategories, setShowCategories] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
+
+  const selectCategory = (category) => {
+    setSelectedCategory(category);
+    setShowCategories(false);
+  };
+
+  const categories = [
+    {
+      name: "All Categories",
+      text: "",
+    },
+    {
+      name: "Appetizers",
+      text: "Appetizer",
+    },
+    {
+      name: "Breads",
+      text: "Bread",
+    },
+    {
+      name: "Breakfast",
+      text: "Breakfast",
+    },
+    {
+      name: "Entrées",
+      text: "Entrée",
+    },
+    {
+      name: "Sandwiches",
+      text: "Sandwich",
+    },
+    {
+      name: "Soups",
+      text: "Soup",
+    },
+    {
+      name: "Desserts",
+      text: "Dessert",
+    },
+    {
+      name: "Snacks",
+      text: "Snack",
+    },
+  ];
 
   useEffect(() => {
     let allRecipes = [];
@@ -47,10 +89,17 @@ export default () => {
           }
         }
 
-        console.log(allRecipes);
         setRecipes(allRecipes);
       });
   }, []);
+
+  useEffect(() => {
+    if(showCategories){
+      setSearchResults([]);
+    } else{
+      searchChanged();
+    }
+  }, [showCategories]);
 
   const searchChanged = () => {
     const query = document.getElementById("search-field").value;
@@ -63,12 +112,14 @@ export default () => {
       if (recipe.title.toLowerCase().indexOf(query.toLowerCase()) === -1) {
         continue;
       }
+      if (recipe.category.indexOf(categories[selectedCategory].text) === -1) {
+        continue;
+      }
       validResults.push(recipe);
     }
-    console.log(query);
-    console.log(validResults);
     setSearchResults(validResults);
   };
+
 
   return (
     <>
@@ -87,7 +138,7 @@ export default () => {
             justify-content: center;
             align-items: center;
             background-color: var(--light-gray);
-            padding: 0 40px;
+            padding-left: 40px;
             border-radius: 5px;
             width: 100%;
 
@@ -122,31 +173,126 @@ export default () => {
             placeholder="Search for recipes"
             onChange={() => searchChanged()}
           />
+          <div
+            css={css`
+              background-color: var(--dark-gray);
+              width: 250px;
+              height: 66px;
+              border-top-right-radius: 5px;
+              border-bottom-right-radius: 5px;
+              display: flex;
+              flex-direction: row;
+              justify-content: flex-start;
+              align-items: center;
+            `}
+            onClick={() => setShowCategories(!showCategories)}
+          >
+            <img
+              src={(showCategories) ? UpArrow : DownArrow}
+              css={css`
+                width: 20px;
+                height: 13px;
+                margin: 0 10px;
+              `}
+              alt="Dropdown icon"
+            />
+            <p
+              css={css`
+                font-size: 1.2rem;
+                color: var(--font-color);
+                font-family: "Inter", sans-serif;
+                font-weight: 600;
+              `}
+            >
+              {categories[selectedCategory].name}
+            </p>
+          </div>
         </div>
       </div>
+      {showCategories ? (
+        <div
+          css={css`
+            max-height: 250px;
+            overflow-y: scroll;
+
+            ::-webkit-scrollbar {
+              width: 10px;
+            }
+
+            ::-webkit-scrollbar-track {
+              background: var(--light-gray);
+              border-bottom-right-radius: 5px;
+            }
+
+            ::-webkit-scrollbar-thumb {
+              background: var(--darker-gray);
+            }
+
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+
+            border-top: 2px solid var(--darker-gray);
+          `}
+        >
+          {categories.map((c, i) => (
+            <div
+              css={css`
+                overflow: hidden;
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-end;
+              `}
+              onClick={() => selectCategory(i)}
+            >
+              <div
+                key={`category-${i}`}
+                css={css`
+                  width: 25%;
+                  background-color: var(--light-gray);
+                  padding: 20px 40px;
+                  border-top: 2px solid var(--dark-gray);
+                `}
+              >
+                <p
+                  css={css`
+                    font-size: 1.2rem;
+                    color: var(--font-color);
+                    font-family: "Inter", sans-serif;
+                    font-weight: 600;
+                  `}
+                >
+                  {c.name}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <></>
+      )}
       <div
         css={css`
           max-height: 250px;
           overflow-y: scroll;
-          
 
-          ::-webkit-scrollbar{
+          ::-webkit-scrollbar {
             width: 10px;
           }
 
-          ::-webkit-scrollbar-track{
+          ::-webkit-scrollbar-track {
             background: var(--light-gray);
             border-bottom-right-radius: 5px;
           }
 
-          ::-webkit-scrollbar-thumb{
+          ::-webkit-scrollbar-thumb {
             background: var(--darker-gray);
           }
 
           border-bottom-left-radius: 5px;
           border-bottom-right-radius: 5px;
 
-          border-top: 2px solid ${(searchResults.length > 0) ? "var(--darker-gray)" : "transparent"};
+          border-top: 2px solid
+            ${searchResults.length > 0 ? "var(--darker-gray)" : "transparent"};
         `}
       >
         {searchResults.map((r) => (

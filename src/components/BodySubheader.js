@@ -1,18 +1,18 @@
 /*
- * National Honor Society — Lexington High School — Lexington, MA 
- * 
- * BodyHeader.js — Creates a custom header for sections
- * © 2020-2021 to National Honor Society Lexington, MA Charter
- * 
- * Created by Christian Bernier on 2020-08-25
+ * National Honor Society Cookbook — Lexington High School — Lexington, MA
+ *
+ * BodySubheader.js — A special subheader for recipe pages to include important section headers
+ * © 2021 to National Honor Society Lexington, MA Charter
+ *
+ * Created by Christian Bernier on 2021-03-02
  */
 
 import React from "react";
 import { css } from "@emotion/core";
 
 /*
- * text (string) - The text of the header
- * line (boolean) - Whether there should be a line below the header
+ * text (string) - The text of the subheader
+ * line (boolean) - Whether there should be a line below the subheader
  */
 
 export default ({ text, line }) => {

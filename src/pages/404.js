@@ -1,10 +1,10 @@
 /*
- * National Honor Society — Lexington High School — Lexington, MA 
- * 
+ * National Honor Society Cookbook — Lexington High School — Lexington, MA
+ *
  * 404.js — Error page
- * © 2020-2021 to National Honor Society Lexington, MA Charter
- * 
- * Created by Christian Bernier on 2020-09-10
+ * © 2021 to National Honor Society Lexington, MA Charter
+ *
+ * Created by Christian Bernier on 2021-03-02
  */
 
 import React from "react";

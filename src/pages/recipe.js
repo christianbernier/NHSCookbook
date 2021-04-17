@@ -1,10 +1,10 @@
 /*
- * National Honor Society — Lexington High School — Lexington, MA
+ * National Honor Society Cookbook — Lexington High School — Lexington, MA
  *
- * event.js — Page that fetches event information from a database for the calendar
+ * recipe.js — The webpage for every recipe with instructions, supplies needed, etc.
  * © 2021 to National Honor Society Lexington, MA Charter
  *
- * Created by Christian Bernier on 2021-02-12
+ * Created by Christian Bernier on 2021-03-02
  */
 
 import React, { useState, useEffect } from "react";
@@ -17,6 +17,7 @@ import BodySubheader from "../components/BodySubheader";
 import BodyText from "../components/BodyText";
 import Gap from "../components/Gap.js";
 import LinkBox from "../components/LinkBox";
+import PrinterDisclosure from "../components/PrinterDisclosure";
 import { Helmet } from "react-helmet-async";
 
 export default () => {
@@ -26,14 +27,12 @@ export default () => {
   let recipeID = "00000";
 
   useEffect(() => {
-    
-
     if (typeof window !== "undefined" && typeof document !== "undefined") {
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
       recipeID = urlParams.get("id");
-      if(window.location.origin !== "http://localhost:8000"){
-        window.gtag("event", "click", {"recipe": recipeID});
+      if (window.location.origin !== "http://localhost:8000") {
+        window.gtag("event", "click", { recipe: recipeID });
       }
       setIDForTitle(recipeID);
     }
@@ -85,18 +84,36 @@ export default () => {
       <Header />
       <div id="content_area">
         <Gap height="30px" />
-        <RecipeHeader
-          text={
-            recipeDetails.title
-              ? recipeDetails.title
-              : doneSearching
-              ? "Unable to find recipe"
-              : "Searching..."
-          }
-          category={recipeDetails.category || ""}
-          time={recipeDetails.timeneeded || ""}
-          difficulty={recipeDetails.difficulty || ""}
-        />
+
+        <div
+          css={css`
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+          `}
+        >
+          <RecipeHeader
+            text={
+              recipeDetails.title
+                ? recipeDetails.title
+                : doneSearching
+                ? "Unable to find recipe"
+                : "Searching..."
+            }
+            category={recipeDetails.category || ""}
+            time={recipeDetails.timeneeded || ""}
+            difficulty={recipeDetails.difficulty || ""}
+          />
+          <LinkBox
+            text={"Home"}
+            link={"/"}
+            type={"internal"}
+            special={"home"}
+            css={css`
+              display: inline-block;
+            `}
+          />
+        </div>
         {recipeDetails.title ? (
           <>
             <Gap height="20px" />
@@ -160,15 +177,12 @@ export default () => {
                   `}
                 >
                   {recipeDetails.pictures.map((p, i) => (
-                    <LinkBox
-                      type="external"
-                      text={`${recipeDetails.title} example${
-                        recipeDetails.pictures.length > 1 ? ` ${i + 1}` : ""
-                      }`}
-                      special="skinny"
-                      link={p}
+                    <img
+                      src={`https://lh3.googleusercontent.com/d/${p.split("id=")[1]}`}
                       css={css`
-                        display: inline-block;
+                        max-height: 400px;
+                        border-radius: 5px;
+                        margin: 10px;
                       `}
                     />
                   ))}
@@ -189,6 +203,7 @@ export default () => {
             }
           />
         )}
+        <PrinterDisclosure/>
 
         <Gap height="30px" />
         <Footer />

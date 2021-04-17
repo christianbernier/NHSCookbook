@@ -1,18 +1,20 @@
 /*
- * National Honor Society — Lexington High School — Lexington, MA 
- * 
- * BodyHeader.js — Creates a custom header for sections
- * © 2020-2021 to National Honor Society Lexington, MA Charter
- * 
- * Created by Christian Bernier on 2020-08-25
+ * National Honor Society Cookbook — Lexington High School — Lexington, MA
+ *
+ * RecipeHeader.js — A special type of BodyHeader for the title of the recipe
+ * © 2021 to National Honor Society Lexington, MA Charter
+ *
+ * Created by Christian Bernier on 2021-03-02
  */
 
 import React from "react";
 import { css } from "@emotion/core";
 
 /*
- * text (string) - The text of the header
- * line (boolean) - Whether there should be a line below the header
+ * text (string) - The title of the recipe
+ * category (string) - The category of the recipe
+ * time (string) - The time needed to make the recipe
+ * difficulty (string) - The difficulty of the recipe
  */
 
 export default ({ text, category, time, difficulty }) => {
@@ -37,6 +39,10 @@ export default ({ text, category, time, difficulty }) => {
           @media only screen and (max-width: 500px) {
             margin-right: 30px;
             margin-left: 30px;
+          }
+
+          @media only print{
+            margin-top: -0.75in;
           }
         `}
       >

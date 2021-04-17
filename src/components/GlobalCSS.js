@@ -1,10 +1,10 @@
 /*
- * National Honor Society — Lexington High School — Lexington, MA
+ * National Honor Society Cookbook — Lexington High School — Lexington, MA
  *
  * GlobalCSS.js — HTML tags for the <head> and CSS to be used across the site
- * © 2020-2021 to National Honor Society Lexington, MA Charter
+ * © 2021 to National Honor Society Lexington, MA Charter
  *
- * Created by Christian Bernier on 2020-08-20
+ * Created by Christian Bernier on 2021-03-02
  */
 
 import React from "react";
@@ -66,6 +66,27 @@ export default () => {
             --gold: #d29230;
 
             overflow-x: hidden;
+
+            -webkit-print-color-adjust: exact !important;
+          }
+
+          @page {
+            size: auto;
+            margin: 0.6in 0;
+          }
+
+          @page :first{
+            margin: 0 0 0.6in 0;
+          }
+
+          * {
+            font-variant-ligatures: none;
+          }
+
+          #content_area{
+            @media only print{
+              margin: 0.6in;
+            }
           }
 
           body {

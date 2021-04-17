@@ -1,10 +1,10 @@
 /*
- * National Honor Society — Lexington High School — Lexington, MA
+ * National Honor Society Cookbook — Lexington High School — Lexington, MA
  *
- * event.js — Page that fetches event information from a database for the calendar
+ * category.js — A page showing all the recipes for a specific category
  * © 2021 to National Honor Society Lexington, MA Charter
  *
- * Created by Christian Bernier on 2021-02-12
+ * Created by Christian Bernier on 2021-03-02
  */
 
 import React, { useState, useEffect } from "react";
@@ -15,6 +15,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import BodyHeader from "../components/BodyHeader";
 import BodySubheader from "../components/BodySubheader";
+import LinkBox from "../components/LinkBox";
 import BodyText from "../components/BodyText";
 import Gap from "../components/Gap.js";
 import { Helmet } from "react-helmet-async";
@@ -75,7 +76,24 @@ export default () => {
       <Header />
       <div id="content_area">
         <Gap height="30px" />
-        <BodyHeader text={`${category} Recipes`} line={true} />
+        <div
+          css={css`
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+          `}
+        >
+          <BodyHeader text={`${category} Recipes`} line={true} />
+          <LinkBox
+            text={"Home"}
+            link={"/"}
+            type={"internal"}
+            special={"home"}
+            css={css`
+              display: inline-block;
+            `}
+          />
+        </div>
         <BodyText
           paragraphs={
             recipes.length > 0
@@ -168,7 +186,7 @@ export default () => {
         ))}
         <Gap height="30px" />
 
-        {(recipes.length > 0) ? <Footer /> : <></>}
+        {recipes.length > 0 ? <Footer /> : <></>}
       </div>
     </>
   );

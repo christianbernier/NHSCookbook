@@ -1,21 +1,22 @@
 /*
- * National Honor Society — Lexington High School — Lexington, MA 
- * 
- * LinkBox.js — A button for a link, either internal or external
- * © 2020-2021 to National Honor Society Lexington, MA Charter
- * 
- * Created by Christian Bernier on 2020-08-31
+ * National Honor Society Cookbook — Lexington High School — Lexington, MA
+ *
+ * LinkButton.js — A button for a link, either internal or external
+ * © 2021 to National Honor Society Lexington, MA Charter
+ *
+ * Created by Christian Bernier on 2021-03-02
  */
 
 import React from "react";
-import {Link} from "gatsby";
+import { Link } from "gatsby";
 import { css } from "@emotion/core";
-import LinkIcon from "../../assets/link_icon.png";
+import BackIcon from "../../assets/back_icon.png";
 import LinkIconLight from "../../assets/link_icon_light.png";
 
 /*
  * text (string) - The text to be displayed in the box
  * type (string) - The type of link (either internal or external) for more efficient linking (<a> for external; <Link> for internal)
+ * special (string) - Any specially programmed parameters (ex. "home")
  * link (string) - The URL of the link
  */
 
@@ -26,13 +27,28 @@ export default ({ text, type, special, link }) => {
         to={link}
         css={css`
           text-decoration: none;
+          margin-right: ${special === "home" ? "25px" : ""};
+
+          @media only screen and (min-width: 1700px) {
+            margin-right: ${special === "home"
+              ? "calc(((100vw - 1700px) / 2) + 15px)"
+              : ""};
+          }
+
+          @media only print {
+            display: none;
+          }
         `}
       >
         <div
           css={css`
-            width: ${(special === "skinny") ? "auto" : "calc(100vw - 40px)"};
+            width: ${special === "skinny" || special === "home"
+              ? "auto"
+              : "calc(100vw - 40px)"};
             padding: 15px;
-            display: ${(special === "skinny") ? "inline-block" : "flex"};
+            display: ${special === "skinny" || special === "home"
+              ? "inline-block"
+              : "flex"};
             align-items: flex-start;
             justify-content: center;
           `}
@@ -50,7 +66,7 @@ export default ({ text, type, special, link }) => {
             `}
           >
             <img
-              src={LinkIconLight}
+              src={special === "home" ? BackIcon : LinkIconLight}
               css={css`
                 width: 20px;
                 height: 20px;
@@ -85,9 +101,9 @@ export default ({ text, type, special, link }) => {
     >
       <div
         css={css`
-          width: ${(special === "skinny") ? "auto" : "calc(100vw - 40px)"};
+          width: ${special === "skinny" ? "auto" : "calc(100vw - 40px)"};
           padding: 15px;
-          display: ${(special === "skinny") ? "inline-block" : "flex"};
+          display: ${special === "skinny" ? "inline-block" : "flex"};
           align-items: flex-start;
           justify-content: center;
         `}

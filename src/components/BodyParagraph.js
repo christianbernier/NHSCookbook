@@ -1,10 +1,10 @@
 /*
- * National Honor Society — Lexington High School — Lexington, MA 
- * 
+ * National Honor Society Cookbook — Lexington High School — Lexington, MA
+ *
  * BodyParagraph.js — Creates a stylized <p> with custom text
- * © 2020-2021 to National Honor Society Lexington, MA Charter
- * 
- * Created by Christian Bernier on 2020-08-25
+ * © 2021 to National Honor Society Lexington, MA Charter
+ *
+ * Created by Christian Bernier on 2021-03-02
  */
 
 import React from "react";
@@ -33,6 +33,10 @@ export default ({ text }) => {
         @media only screen and (max-width: 500px) {
           margin-right: 30px;
           margin-left: 30px;
+        }
+
+        @media only print{
+          font-size: 14pt;
         }
       `}
     >

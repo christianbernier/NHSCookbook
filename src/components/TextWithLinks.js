@@ -1,10 +1,10 @@
 /*
- * National Honor Society — Lexington High School — Lexington, MA 
- * 
+ * National Honor Society Cookbook — Lexington High School — Lexington, MA
+ *
  * TextWithLinks.js — Displays a body of text with links embedded when encoded with the proper format
- * © 2020-2021 to National Honor Society Lexington, MA Charter
- * 
- * Created by Christian Bernier on 2020-12-29
+ * © 2021 to National Honor Society Lexington, MA Charter
+ *
+ * Created by Christian Bernier on 2021-03-02
  */
 
 import React, { useState, useEffect } from "react";

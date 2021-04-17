@@ -1,10 +1,10 @@
 /*
- * National Honor Society — Lexington High School — Lexington, MA
+ * National Honor Society Cookbook — Lexington High School — Lexington, MA
  *
- * BleedPictureHeader.js — Creates a bleed picture correctly formatted
- * © 2020-2021 to National Honor Society Lexington, MA Charter
+ * BleedPictureShowcase.js — For the homepage of the site, to show an example recipe
+ * © 2021 to National Honor Society Lexington, MA Charter
  *
- * Created by Christian Bernier on 2020-08-31
+ * Created by Christian Bernier on 2021-03-02
  */
 
 import React from "react";
@@ -13,8 +13,8 @@ import SearchBar from "../components/SearchBar";
 
 /*
  * imgsrc (image) - The image to be used as the bleed image
- * header (string) - The text to be displayed over the image
  * height (string) - The height (in CSS format and units) of the image
+ * byline (string) - Who created the dish showcased
  */
 
 export default ({ imgsrc, height, byline }) => {
