@@ -19,6 +19,7 @@ export default () => {
   const [selectedCategory, setSelectedCategory] = useState(0);
   const [showCategories, setShowCategories] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
+  const [scrollDistance, setScrollDistance] = useState(0);
 
   const selectCategory = (category) => {
     setSelectedCategory(category);
@@ -94,10 +95,27 @@ export default () => {
   }, []);
 
   useEffect(() => {
-    if(showCategories){
+    if (showCategories) {
       setSearchResults([]);
-    } else{
+    } else {
       searchChanged();
+    }
+
+    if (typeof window !== "undefined" && typeof document !== "undefined") {
+      if (showCategories) {
+        const currentScroll = window.scrollY;
+        setScrollDistance(window.scrollY);
+        document.getElementsByTagName("body")[0].style.position = "fixed";
+        document.getElementsByTagName("body")[0].style.overflow = "hidden";
+        document.getElementsByTagName(
+          "body"
+        )[0].style.top = `-${currentScroll}px`;
+      } else {
+        document.getElementsByTagName("body")[0].style.position = "";
+        document.getElementsByTagName("body")[0].style.overflow = "";
+        document.getElementsByTagName("body")[0].style.top = "";
+        window.scrollTo(0, scrollDistance);
+      }
     }
   }, [showCategories]);
 
@@ -120,9 +138,37 @@ export default () => {
     setSearchResults(validResults);
   };
 
-
   return (
     <>
+      <div
+        css={css`
+          display: none;
+          width: 100%;
+          padding-top: 15px;
+          margin-bottom: 8px;
+
+          @media only screen and (max-width: 500px) {
+            display: block;
+          }
+        `}
+        onClick={() => {
+          setShowCategories(!showCategories);
+        }}
+      >
+        <p
+          css={css`
+            padding: 5px;
+            color: var(--light);
+            font-family: "Inter", sans-serif;
+            font-size: 1.1rem;
+            font-style: italic;
+            text-decoration: underline;
+            font-weight: 700;
+          `}
+        >
+          Searching in {categories[selectedCategory].name}
+        </p>
+      </div>
       <div
         css={css`
           width: 100%;
@@ -184,11 +230,15 @@ export default () => {
               flex-direction: row;
               justify-content: flex-start;
               align-items: center;
+
+              @media only screen and (max-width: 500px) {
+                display: none;
+              }
             `}
             onClick={() => setShowCategories(!showCategories)}
           >
             <img
-              src={(showCategories) ? UpArrow : DownArrow}
+              src={showCategories ? UpArrow : DownArrow}
               css={css`
                 width: 20px;
                 height: 13px;
@@ -210,63 +260,104 @@ export default () => {
         </div>
       </div>
       {showCategories ? (
-        <div
-          css={css`
-            max-height: 250px;
-            overflow-y: scroll;
+        <>
+          <div
+            css={css`
+              max-height: 250px;
+              overflow-y: scroll;
+              z-index: 1002;
 
-            ::-webkit-scrollbar {
-              width: 10px;
-            }
+              ::-webkit-scrollbar {
+                width: 10px;
+              }
 
-            ::-webkit-scrollbar-track {
-              background: var(--light-gray);
+              ::-webkit-scrollbar-track {
+                background: var(--light-gray);
+                border-bottom-right-radius: 5px;
+              }
+
+              ::-webkit-scrollbar-thumb {
+                background: var(--darker-gray);
+              }
+
+              border-bottom-left-radius: 5px;
               border-bottom-right-radius: 5px;
-            }
 
-            ::-webkit-scrollbar-thumb {
-              background: var(--darker-gray);
-            }
+              border-top: 2px solid var(--darker-gray);
 
-            border-bottom-left-radius: 5px;
-            border-bottom-right-radius: 5px;
+              @media only screen and (max-width: 500px) {
+                width: 80vw;
+                height: 50vh;
+                max-height: 50vh;
+                position: fixed;
+                top: 25vh;
+                left: 10vw;
+                border-radius: 5px;
 
-            border-top: 2px solid var(--darker-gray);
-          `}
-        >
-          {categories.map((c, i) => (
-            <div
-              css={css`
-                overflow: hidden;
-                display: flex;
-                flex-direction: row;
-                justify-content: flex-end;
-              `}
-              onClick={() => selectCategory(i)}
-            >
+                ::-webkit-scrollbar-track {
+                  border-top-right-radius: 5px;
+                }
+              }
+            `}
+          >
+            {categories.map((c, i) => (
               <div
-                key={`category-${i}`}
                 css={css`
-                  width: 25%;
-                  background-color: var(--light-gray);
-                  padding: 20px 40px;
-                  border-top: 2px solid var(--dark-gray);
+                  overflow: hidden;
+                  display: flex;
+                  flex-direction: row;
+                  justify-content: flex-end;
                 `}
+                key={`category-div-${i}`}
+                onClick={() => selectCategory(i)}
               >
-                <p
+                <div
+                  key={`category-${i}`}
                   css={css`
-                    font-size: 1.2rem;
-                    color: var(--font-color);
-                    font-family: "Inter", sans-serif;
-                    font-weight: 600;
+                    width: 25%;
+                    background-color: var(--light-gray);
+                    padding: 20px 40px;
+                    border-top: 2px solid var(--dark-gray);
+
+                    @media only screen and (max-width: 500px) {
+                      width: 100%;
+                    }
                   `}
                 >
-                  {c.name}
-                </p>
+                  <p
+                    css={css`
+                      font-size: 1.2rem;
+                      color: var(--font-color);
+                      font-family: "Inter", sans-serif;
+                      font-weight: 600;
+                    `}
+                  >
+                    {c.name}
+                  </p>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+          <div
+            css={css`
+              z-index: 1001;
+              background-color: rgba(0, 0, 0, 0.5);
+              width: 100vw;
+              height: 100vh;
+              position: fixed;
+              top: 0;
+              left: 0;
+              display: none;
+
+              @media only screen and (max-width: 500px){
+                display: block;
+              }
+            `}
+            onClick={() => setShowCategories(false)}
+          >
+
+          </div>
+        </>
       ) : (
         <></>
       )}

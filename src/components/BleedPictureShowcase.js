@@ -44,7 +44,6 @@ export default ({ imgsrc, height, byline }) => {
 
         @media only screen and (max-width: 500px) {
           flex-direction: column;
-          margin-top: 0;
           background: linear-gradient(to right, #00000060, #00000060),
             url(${imgsrc}) no-repeat center;
           background-size: cover;
