@@ -18,6 +18,7 @@ import BodyText from "../components/BodyText";
 import Gap from "../components/Gap.js";
 import LinkBox from "../components/LinkBox";
 import PrinterDisclosure from "../components/PrinterDisclosure";
+import Rating from "../components/Rating";
 import { Helmet } from "react-helmet-async";
 
 export default () => {
@@ -91,7 +92,7 @@ export default () => {
             flex-direction: row;
             justify-content: space-between;
 
-            @media only screen and (max-width: 500px){
+            @media only screen and (max-width: 500px) {
               flex-direction: column-reverse;
               margin-top: -30px;
             }
@@ -121,6 +122,7 @@ export default () => {
         </div>
         {recipeDetails.title ? (
           <>
+            <Rating id={idForTitle} />
             <Gap height="20px" />
             <BodySubheader text="About the dish" line={true} />
             <BodyText paragraphs={[recipeDetails.description]} />
@@ -183,11 +185,17 @@ export default () => {
                 >
                   {recipeDetails.pictures.map((p, i) => (
                     <img
-                      src={`https://lh3.googleusercontent.com/d/${p.split("id=")[1]}`}
+                      src={`https://lh3.googleusercontent.com/d/${
+                        p.split("id=")[1]
+                      }`}
                       css={css`
                         max-height: 400px;
                         border-radius: 5px;
                         margin: 10px;
+
+                        @media only screen and (max-width: 500px){
+                          max-width: 80vw;
+                        }
                       `}
                     />
                   ))}
@@ -208,7 +216,7 @@ export default () => {
             }
           />
         )}
-        <PrinterDisclosure/>
+        <PrinterDisclosure />
 
         <Gap height="30px" />
         <Footer />
